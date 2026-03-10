@@ -1,0 +1,39 @@
+# PhantomAI Android — .gitignore
+
+# Gradle build outputs (huge — 98MB+)
+build/
+app/build/
+.gradle/
+*.apk
+*.aab
+*.aar
+
+# Local config (machine-specific, never commit)
+local.properties
+
+# Android Studio IDE files
+.idea/
+*.iml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Kotlin generated
+*.class
+*.kt.class
+
+# Secrets & keys (NEVER commit)
+google-services.json
+*.keystore
+*.jks
+keystore.properties
+secrets.properties
+.env
+*.env
+
+# OS noise
+.DS_Store
+Thumbs.db

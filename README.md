@@ -31,7 +31,7 @@ Opus/Luna/Gemini  curl /context     BackSocketService
 ## Features
 
 ### Phone → VPS (Chat)
-- 🐴 **Floating Bubble** — draggable overlay, stays on top of all apps
+- 🔮 **Floating Bubble** — draggable overlay, stays on top of all apps
 - 💬 **Chat Panel** — live AI chat via SSE stream from VPS
 - ⚙️ **Settings** — configure streamer URL + back socket port
 
@@ -160,9 +160,11 @@ curl -X POST http://10.0.0.3:8300/logcat \
 ## Philosophy
 
 ```
+Trojan-Horse
 The horse is inside the gates.
 It reads. It listens. It speaks. It reports.
 The AI on the other end decides what to do with it.
 ```
 
-MIT — do whatever you want with it. 🐴
+MIT — do whatever you want with it. 🔮
+

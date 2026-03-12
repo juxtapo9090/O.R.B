@@ -1,6 +1,6 @@
-# ♞ Trojan Horse (PhantomAI)
+# 🔮 O.R.B. — Omnipresent Remote Bridge
 
-> *Already infiltrated. Already watching. Already listening.*
+> *Always watching. Always listening. Always there.*
 
 An AI-powered Android overlay that bridges your phone to VPS agents (Opus, Gemini, Luna) via WireGuard. It's both a **floating chat panel** on your phone AND a **remote-controllable back socket** that VPS agents can call into.
 
@@ -31,7 +31,7 @@ Opus/Luna/Gemini  curl /context     BackSocketService
 ## Features
 
 ### Phone → VPS (Chat)
-- ♞ **Floating Bubble** — draggable overlay, stays on top of all apps
+- 🐴 **Floating Bubble** — draggable overlay, stays on top of all apps
 - 💬 **Chat Panel** — live AI chat via SSE stream from VPS
 - ⚙️ **Settings** — configure streamer URL + back socket port
 
@@ -82,7 +82,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 # Health
 curl http://10.0.0.3:8300/health
 
-# What's you were doing ?
+# What's abang doing right now?
 curl http://10.0.0.3:8300/context
 
 # Phone status
@@ -91,12 +91,12 @@ curl http://10.0.0.3:8300/status
 # Push a message
 curl -X POST http://10.0.0.3:8300/notify \
   -H "Content-Type: application/json" \
-  -d '{"title": "Opus says", "message": "Sup Fam!"}'
+  -d '{"title": "Opus says", "message": "Hey abang!"}'
 
 # Make phone speak
 curl -X POST http://10.0.0.3:8300/tts \
   -H "Content-Type: application/json" \
-  -d '{"text": "Hey Fam, I am watching.", "speed": 1.0}'
+  -d '{"text": "Hello abang, I am watching.", "speed": 1.0}'
 
 # Logcat (after READ_LOGS grant)
 curl -X POST http://10.0.0.3:8300/logcat \
@@ -144,6 +144,17 @@ curl -X POST http://10.0.0.3:8300/logcat \
 - [ ] **Session selector** — pick which tmux session (gemini / claude)
 - [ ] **Thinking block filter** — strip `<thinking>...</thinking>` from streamed responses
 
+# Some Tacap2 Point
+- [ ] for first time installation when already enabling overlay ,return back the deploy button still grey , the only solution is force kill the program and re run , so the overlay permission will append
+
+- [ ] removing some screenshot and root shell features on chat tab 
+- [ ] (optional) add some + function to deliver file, doc , image , need   to configure default dir from vps to show /dir/to/the/file/send/
+- [ ] clear function on the chat tab , sebelah trojan horse icon at the top panel , it just clear the chat on trojan part , not on current gemini/claude code context 
+
+
+
+
+
 ---
 
 ## Philosophy
@@ -155,4 +166,3 @@ The AI on the other end decides what to do with it.
 ```
 
 MIT — do whatever you want with it. 🐴
-

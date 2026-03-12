@@ -227,10 +227,10 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Trojan Horse Overlay",
+                name = "O.R.B. Overlay",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Keeps the horse inside the gates"
+                description = "Keeps the orb floating above the gates"
                 setShowBadge(false)
             }
             val manager = getSystemService(NotificationManager::class.java)
@@ -246,8 +246,8 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("🐴 Trojan Horse")
-            .setContentText("Infiltrated — tap to open app")
+            .setContentTitle("🔮 O.R.B.")
+            .setContentText("Omnipresent — tap to open")
             .setSmallIcon(R.drawable.ic_phantom)
             .setContentIntent(pendingIntent)
             .setOngoing(true)

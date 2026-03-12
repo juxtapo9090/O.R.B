@@ -70,7 +70,7 @@ class BackSocketService : Service(), TextToSpeech.OnInitListener {
             }
             routing {
                 get("/health") {
-                    call.respond(HealthResponse("alive", "PhantomAI", "0.1.0-trojan"))
+                    call.respond(HealthResponse("alive", "O.R.B.", "0.2.0-orb"))
                 }
                 post("/notify") {
                     val req = call.receive<NotifyRequest>()
@@ -174,7 +174,7 @@ class BackSocketService : Service(), TextToSpeech.OnInitListener {
     }
 
     private fun createNotification() = NotificationCompat.Builder(this, CHANNEL_ID)
-        .setContentTitle("🔌 Back socket open")
+        .setContentTitle("🔌 O.R.B. Back Socket")
         .setContentText("Listening for VPS commands on port 8300")
         .setSmallIcon(android.R.drawable.stat_sys_warning) // Using standard system icon
         .setPriority(NotificationCompat.PRIORITY_LOW)

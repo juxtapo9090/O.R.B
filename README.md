@@ -1,4 +1,4 @@
-# 🐴 Trojan Horse (PhantomAI)
+# ♞ Trojan Horse (PhantomAI)
 
 > *Already infiltrated. Already watching. Already listening.*
 
@@ -31,7 +31,7 @@ Opus/Luna/Gemini  curl /context     BackSocketService
 ## Features
 
 ### Phone → VPS (Chat)
-- 🐴 **Floating Bubble** — draggable overlay, stays on top of all apps
+- ♞ **Floating Bubble** — draggable overlay, stays on top of all apps
 - 💬 **Chat Panel** — live AI chat via SSE stream from VPS
 - ⚙️ **Settings** — configure streamer URL + back socket port
 
@@ -82,7 +82,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 # Health
 curl http://10.0.0.3:8300/health
 
-# What's abang doing right now?
+# What's you were doing ?
 curl http://10.0.0.3:8300/context
 
 # Phone status
@@ -91,12 +91,12 @@ curl http://10.0.0.3:8300/status
 # Push a message
 curl -X POST http://10.0.0.3:8300/notify \
   -H "Content-Type: application/json" \
-  -d '{"title": "Opus says", "message": "Hey abang!"}'
+  -d '{"title": "Opus says", "message": "Sup Fam!"}'
 
 # Make phone speak
 curl -X POST http://10.0.0.3:8300/tts \
   -H "Content-Type: application/json" \
-  -d '{"text": "Hello abang, I am watching.", "speed": 1.0}'
+  -d '{"text": "Hey Fam, I am watching.", "speed": 1.0}'
 
 # Logcat (after READ_LOGS grant)
 curl -X POST http://10.0.0.3:8300/logcat \
@@ -155,3 +155,4 @@ The AI on the other end decides what to do with it.
 ```
 
 MIT — do whatever you want with it. 🐴
+

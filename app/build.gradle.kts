@@ -40,6 +40,13 @@ android {
         compose = true
         buildConfig = true
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/io.netty.versions.properties"
+        }
+    }
 }
 
 dependencies {
@@ -63,12 +70,16 @@ dependencies {
     // DataStore
     implementation(libs.datastore.preferences)
 
-    // Ktor HTTP Client
+    // Ktor HTTP Client & Server
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.serialization.kotlinx.json)
+    
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.content.negotiation)
 
     // Kotlin Serialization & Coroutines
     implementation(libs.kotlinx.serialization.json)

@@ -39,6 +39,7 @@ fun SettingsScreen() {
     val client = remember { StreamerClient() }
 
     var streamerUrl by remember(settings.streamerUrl) { mutableStateOf(settings.streamerUrl) }
+    var backSocketPort by remember(settings.backSocketPort) { mutableStateOf(settings.backSocketPort.toString()) }
     var selectedBackend by remember(settings.activeBackend) { mutableStateOf(settings.activeBackend) }
     var geminiKey by remember { mutableStateOf("") }
     var anthropicKey by remember { mutableStateOf("") }
@@ -111,6 +112,21 @@ fun SettingsScreen() {
                     scope.launch { settingsRepo.saveStreamerUrl(it) }
                 },
                 placeholder = "http://10.0.0.1:8200"
+            )
+
+            Spacer(Modifier.height(8.dp))
+
+            SettingsLabel("Back Socket Port (Restart required)")
+            SettingsTextField(
+                value = backSocketPort,
+                onValueChange = {
+                    backSocketPort = it
+                    val port = it.toIntOrNull()
+                    if (port != null && port in 1..65535) {
+                        scope.launch { settingsRepo.saveBackSocketPort(port) }
+                    }
+                },
+                placeholder = "8300"
             )
 
             Spacer(Modifier.height(8.dp))

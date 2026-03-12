@@ -55,10 +55,13 @@ class MainActivity : ComponentActivity() {
     private fun launchBubble() {
         if (Settings.canDrawOverlays(this)) {
             val intent = Intent(this, OverlayService::class.java)
+            val socketIntent = Intent(this, com.phantom.ai.service.BackSocketService::class.java)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(intent)
+                startForegroundService(socketIntent)
             } else {
                 startService(intent)
+                startService(socketIntent)
             }
             moveTaskToBack(true)
         } else {

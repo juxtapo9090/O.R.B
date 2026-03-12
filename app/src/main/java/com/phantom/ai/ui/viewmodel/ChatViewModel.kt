@@ -27,6 +27,14 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
 
     val settingsFlow = settingsRepo.settingsFlow
 
+    init {
+        viewModelScope.launch {
+            com.phantom.ai.ui.overlay.ChatEventBus.events.collect { msg ->
+                _messages.value = _messages.value + msg
+            }
+        }
+    }
+
     private var streamJob: Job? = null
     private var currentUrl: String = ""
 

@@ -145,11 +145,11 @@ curl -X POST http://10.0.0.3:8300/logcat \
 - [ ] **Thinking block filter** — strip `<thinking>...</thinking>` from streamed responses
 
 # Some Tacap2 Point
-- [ ] for first time installation when already enabling overlay ,return back the deploy button still grey , the only solution is force kill the program and re run , so the overlay permission will append
+- [x] for first time installation when already enabling overlay ,return back the deploy button still grey , the only solution is force kill the program and re run , so the overlay permission will append
 
-- [ ] removing some screenshot and root shell features on chat tab 
-- [ ] (optional) add some + function to deliver file, doc , image , need   to configure default dir from vps to show /dir/to/the/file/send/
-- [ ] clear function on the chat tab , sebelah trojan horse icon at the top panel , it just clear the chat on trojan part , not on current gemini/claude code context 
+- [x] removing some screenshot and root shell features on chat tab 
+- [x] (optional) add some + function to deliver file, doc , image , need   to configure default dir from vps to show /dir/to/the/file/send/
+- [x] clear function on the chat tab , sebelah trojan horse icon at the top panel , it just clear the chat on trojan part , not on current gemini/claude code context 
 
 
 

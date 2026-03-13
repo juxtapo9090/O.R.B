@@ -135,6 +135,15 @@ curl -X POST http://10.0.0.3:8300/logcat \
 - Fixed: coroutines `1.7.3 → 1.8.1` (Ktor server compatibility)
 - Wired into Catalyst nudger as 5 `type: http` tools (`phone_*`)
 
+### v0.3.0-orb — 2026-03-14
+- **Rebrand: Trojan Horse → O.R.B.** — New futuristic aesthetic.
+- New glowing orb icon replaces the horse across the system.
+- Refactored ChatPanel UI. Removed root shell/screenshot buttons (cleaning up).
+- Added `Clear Chat` button in the panel header.
+- Added visual `+` button placeholder for future file drops.
+- Fixed overlay permission check bug on first install (auto-refreshes on resume).
+- **Drag-to-close** mechanics: drag the floating O.R.B. to a bottom-center drop-zone to safely remove the UI (background services stay running).
+
 ---
 
 ## Roadmap

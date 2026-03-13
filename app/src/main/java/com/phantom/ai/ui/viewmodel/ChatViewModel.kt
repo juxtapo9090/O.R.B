@@ -17,9 +17,7 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
     private val client = StreamerClient()
     private val settingsRepo = SettingsRepository(app)
 
-    private val _messages = MutableStateFlow<List<ChatMessage>>(
-        listOf(ChatMessage("🐴 Trojan Horse deployed. What's the mission?", isUser = false))
-    )
+    private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val messages: StateFlow<List<ChatMessage>> = _messages.asStateFlow()
 
     private val _connectionStatus = MutableStateFlow("disconnected")
@@ -70,7 +68,7 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun clearMessages() {
-        _messages.value = listOf(ChatMessage("🐴 Chat cleared. Ready.", isUser = false))
+        _messages.value = listOf(ChatMessage("🔮 Chat cleared. Ready.", isUser = false))
     }
 
     override fun onCleared() {

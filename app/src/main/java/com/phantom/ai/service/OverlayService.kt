@@ -14,7 +14,19 @@ import android.view.MotionEvent
 import android.view.WindowManager
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -39,7 +51,9 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
     private lateinit var windowManager: WindowManager
     private var bubbleView: ComposeView? = null
     private var chatPanelView: ComposeView? = null
+    private var closeTargetView: ComposeView? = null
     private var isExpanded = false
+    private var isHoveringClose = mutableStateOf(false)
 
     // ViewModel store for service-scoped ViewModel
     private val _viewModelStore = ViewModelStore()
@@ -137,6 +151,7 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
                     initialTouchX = event.rawX
                     initialTouchY = event.rawY
                     moved = false
+                    showCloseTarget()
                     true
                 }
                 MotionEvent.ACTION_MOVE -> {
@@ -146,10 +161,18 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
                     params.x = initialX + dx.toInt()
                     params.y = initialY + dy.toInt()
                     windowManager.updateViewLayout(view, params)
+                    
+                    val screenHeight = resources.displayMetrics.heightPixels
+                    val screenWidth = resources.displayMetrics.widthPixels
+                    val inCloseZone = event.rawY > screenHeight - 350 && Math.abs(event.rawX - screenWidth / 2) < 250
+                    isHoveringClose.value = inCloseZone
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-                    if (!moved) {
+                    removeCloseTarget()
+                    if (isHoveringClose.value) {
+                        stopSelf()
+                    } else if (!moved) {
                         toggleChatPanel()
                     }
                     true
@@ -166,6 +189,53 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
         bubbleView?.let {
             windowManager.removeView(it)
             bubbleView = null
+        }
+    }
+
+    private fun showCloseTarget() {
+        if (closeTargetView != null) return
+        isHoveringClose.value = false
+
+        val params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            PixelFormat.TRANSLUCENT
+        ).apply {
+            gravity = Gravity.BOTTOM
+        }
+
+        closeTargetView = ComposeView(this).apply {
+            setViewTreeLifecycleOwner(this@OverlayService)
+            setViewTreeSavedStateRegistryOwner(this@OverlayService)
+            setContent {
+                val hovered by isHoveringClose
+                Box(
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 64.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(if (hovered) 72.dp else 56.dp)
+                            .clip(CircleShape)
+                            .background(if (hovered) Color(0xFFFF5252) else Color(0x66000000)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(Icons.Default.Close, contentDescription = null, tint = Color.White)
+                    }
+                }
+            }
+        }
+        windowManager.addView(closeTargetView, params)
+    }
+
+    private fun removeCloseTarget() {
+        closeTargetView?.let {
+            windowManager.removeView(it)
+            closeTargetView = null
         }
     }
 
@@ -227,7 +297,7 @@ class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewM
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                name = "O.R.B. Overlay",
+                "O.R.B. Overlay",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = "Keeps the orb floating above the gates"

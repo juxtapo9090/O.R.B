@@ -88,8 +88,17 @@ fun PhantomLauncher(
     var selectedTab by remember { mutableIntStateOf(0) }
     var permissionGranted by remember { mutableStateOf(hasOverlayPermission()) }
 
-    LaunchedEffect(Unit) {
-        permissionGranted = hasOverlayPermission()
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                permissionGranted = hasOverlayPermission()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
 
     val gradientBg = Brush.verticalGradient(
@@ -170,8 +179,8 @@ private fun HomeTab(
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_trojan),
-                contentDescription = "Trojan Horse",
+                painter = painterResource(R.drawable.ic_orb),
+                contentDescription = "O.R.B.",
                 modifier = Modifier.size(96.dp).clip(androidx.compose.foundation.shape.CircleShape),
                 contentScale = ContentScale.Crop
             )
@@ -179,7 +188,7 @@ private fun HomeTab(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Trojan Horse",
+                text = "O.R.B.",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFE0D4FF)
@@ -259,7 +268,7 @@ private fun HomeTab(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "The horse is inside the gates.\nTap to unleash the soldiers.",
+                text = "The O.R.B. is securely positioned.\nTap to connect the bridge.",
                 color = Color(0xFF6B6B8D),
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center

@@ -12,8 +12,8 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.Terminal
+import androidx.compose.material.icons.filled.DeleteSweep
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -81,14 +81,14 @@ fun ChatPanelContent(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Image(
-                    painter = painterResource(com.phantom.ai.R.drawable.ic_trojan),
-                    contentDescription = "Trojan Horse",
+                    painter = painterResource(com.phantom.ai.R.drawable.ic_orb),
+                    contentDescription = "O.R.B.",
                     modifier = Modifier.size(24.dp).clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
                 Column {
                     Text(
-                        "Trojan Horse",
+                        "O.R.B.",
                         color = Color(0xFFE0D4FF),
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp
@@ -101,6 +101,9 @@ fun ChatPanelContent(
                         else           -> Color(0xFF666680) to "● offline"
                     }
                     Text(statusText, color = statusColor, fontSize = 10.sp)
+                }
+                IconButton(onClick = { viewModel.clearMessages() }, modifier = Modifier.size(24.dp).padding(start = 4.dp)) {
+                    Icon(Icons.Default.DeleteSweep, contentDescription = "Clear Chat", tint = Color(0xFF8B7FB8), modifier = Modifier.size(20.dp))
                 }
             }
             IconButton(onClick = onClose) {
@@ -123,43 +126,6 @@ fun ChatPanelContent(
             }
         }
 
-        // Tool buttons
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            AssistChip(
-                onClick = {
-                    viewModel.sendPrompt(streamerUrl, "take a screenshot of the current screen")
-                },
-                label = { Text("Screenshot", fontSize = 11.sp) },
-                leadingIcon = {
-                    Icon(Icons.Default.CameraAlt, contentDescription = null, modifier = Modifier.size(16.dp))
-                },
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = Color(0xFF1A2A1A),
-                    labelColor = Color(0xFF4CAF50),
-                    leadingIconContentColor = Color(0xFF4CAF50)
-                )
-            )
-            AssistChip(
-                onClick = {
-                    viewModel.sendPrompt(streamerUrl, "open a root shell on the phone")
-                },
-                label = { Text("Root Shell", fontSize = 11.sp) },
-                leadingIcon = {
-                    Icon(Icons.Default.Terminal, contentDescription = null, modifier = Modifier.size(16.dp))
-                },
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = Color(0xFF2A1A1A),
-                    labelColor = Color(0xFFFF5722),
-                    leadingIconContentColor = Color(0xFFFF5722)
-                )
-            )
-        }
-
         // Input bar
         Row(
             modifier = Modifier
@@ -169,6 +135,18 @@ fun ChatPanelContent(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            IconButton(
+                onClick = {
+                    // TODO: Implement file/doc/image delivery
+                },
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFF252540))
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Add File", tint = Color(0xFFE0D4FF), modifier = Modifier.size(24.dp))
+            }
+
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -177,7 +155,7 @@ fun ChatPanelContent(
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 if (inputText.isEmpty()) {
-                    Text("Command the horse...", color = Color(0xFF5C5C7A), fontSize = 14.sp)
+                    Text("Command O.R.B...", color = Color(0xFF5C5C7A), fontSize = 14.sp)
                 }
                 BasicTextField(
                     value = inputText,

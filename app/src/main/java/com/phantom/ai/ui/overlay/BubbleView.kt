@@ -29,8 +29,8 @@ fun BubbleContent(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(R.drawable.ic_trojan),
-            contentDescription = "Trojan Horse",
+            painter = painterResource(R.drawable.ic_orb),
+            contentDescription = "O.R.B.",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
